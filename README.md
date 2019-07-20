@@ -2,7 +2,7 @@
 SEE HOW MUCH YOU HAVE IN COMMON WITH YOUR FRIEND'S FILM TASTES
 
 Letterboxd Friend Ranker takes a given user, scrapes all their corresponding friend's ratings data, and proceeds to compute and rank  the user's friends based on a commonality score. Each score is computed as such:  
-<a href="url"><img src="https://raw.githubusercontent.com/BBottoml/Letterboxd-friend-ranker/master/Screenshot%20(71).png" align="center" height=30% width=30% ></a>
+<a href="url"><img src="https://raw.githubusercontent.com/BBottoml/Letterboxd-friend-ranker/master/Screenshot%20(71).png" align="center" height=35% width=35% ></a>
 
 
 ## Getting Started
