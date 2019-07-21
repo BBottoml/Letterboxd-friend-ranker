@@ -36,8 +36,10 @@ class User:
             self.films_ratings[clean_data(temp_list[1])] = clean_data(temp_list[ratings_index])
 
         user_data.close()  # close data file
+        print("\nProcessing data...\n")
 
     def scrape_main_user(self):
+        print("\nScraping main user data...\n")
         browser_profile = webdriver.ChromeOptions()
         browser_profile.add_experimental_option('prefs', {'intl.accept_languages': 'en,en_US'})
         browser = webdriver.Chrome(options=browser_profile)
@@ -45,6 +47,12 @@ class User:
         # navigate to main user's following list
         following_url = "https://letterboxd.com/" + self.username + "/films/" + "ratings/"
         browser.get(following_url)
+
+        # check to see if user has no ratings
+        if (no_ratings(browser)):
+            print("Provided main user has no ratings\n")
+            print("Exiting...\n")
+            exit(1)
 
         # iterate through films
         while True:

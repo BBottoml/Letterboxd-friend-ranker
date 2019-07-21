@@ -25,7 +25,12 @@ def scraper(username):
 
     for i in range(0, rows_length):
         user_friend = rows[i]
-        friends.append(build_friend(user_friend, browser))
+        new_friend = build_friend(user_friend, browser)
+
+        # if no ratings are found in given friend, build_friend() returns None
+        # hence, we check if it is None before appending
+        if new_friend is not None:
+            friends.append(new_friend)
 
         # we need to navigate back and re-grab table, rows
         browser.get(following_url)
@@ -45,13 +50,19 @@ def build_friend(some_friend, browser):
     browser.get(ratings_link_2)
     films_ratings = dict()
 
-    # iterate through films
+    # ensure there are ratings present
+    # No ratings will only occur when user has seen 0 films
+    if (no_ratings(browser)):
+        return None
+
+    # maintain infinite loop until no more pages are found
     while True:
 
         # get main section of films and collect data
         film_section = browser.find_element_by_xpath('//*[@id="content"]/div/div/section/ul')
         films = film_section.find_elements_by_tag_name('li')
 
+        # iterate through films on current page
         for film in films:
             div = film.find_element_by_tag_name('div')
             film_name = div.get_attribute('data-film-name')
@@ -62,6 +73,7 @@ def build_friend(some_friend, browser):
                 continue
             films_ratings[film_name] = rating
 
+        # click next page if present
         if next_button(browser):
             browser.find_element_by_xpath('//*[@id="content"]/div/div/section/div[2]/div[2]/a').click()
         else:

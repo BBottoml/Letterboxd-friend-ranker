@@ -50,3 +50,12 @@ def next_button(browser):
         return True
     except:
         return False
+
+
+def no_ratings(browser):
+    try:
+        table = browser.find_element_by_xpath('//*[@id="content"]/div/div/section/section')
+        header = table.find_element_by_tag_name('h2').text
+        return header == "No ratings yet"
+    except:
+        return False

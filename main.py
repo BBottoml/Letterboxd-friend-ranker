@@ -1,7 +1,6 @@
 from Assests.user import User
 from Assests.commonality import *
 import scraper as sc
-import collections
 
 
 def main():
@@ -18,7 +17,7 @@ def main():
     print("data file called ratings.csv from Letterboxd,")
     print("simply enter nothing when prompted for a file")
     print("(press enter) and your data will be scraped.")
-    print("=====================================================")
+    print("=====================================================\n")
 
     # prompt for info
     file_name = input("Enter the CSV file for your data: ")
@@ -28,8 +27,10 @@ def main():
     current_user = User(file_name, username)
 
     # scrape data of user's friends
+    print("Scraping friend data...\n")
     friends = sc.scraper(username)
 
+    print("Computing scores...\n")
     # compute commonality for each friend
     results = commonality(current_user, friends)
 
@@ -38,19 +39,22 @@ def main():
     scores.sort()
     invert_results = {v: k for k, v in results.items()}
 
+    print("Generating report...\n")
     # write report
     result_fn = "Commonality report for - " + current_user.username + ".txt"
     result_file = open(result_fn, "w")
-    result_file.write("Letterboxd Friend Ranker - Report!\n\n")
+    result_file.write("Letterboxd Friend Ranker - Report for: " + current_user.username + "!\n\n")
     most_common = invert_results[scores[0]]
     result_file.write("You had the most in-common with: " + most_common + "\n\n")
 
     result_file.write("Here's how it all stacked-up\n\n")
     for score in scores:
         key = invert_results[score]
-        result_file.write("User: " + key + "\tAvg. difference: " + str(score) + "\n")
+        result_file.write("User: " + key + "\t\tAvg. difference: " + str(score) + "\n")
 
     result_file.close()
+
+    print("Done! View the report in the current directory!")
 
 
 if __name__ == "__main__":
