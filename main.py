@@ -42,7 +42,7 @@ def main():
     result_fn = "Commonality report for - " + current_user.username + ".txt"
     result_file = open(result_fn, "w")
     result_file.write("Letterboxd Friend Ranker - Report!\n\n")
-    most_common = invert_results[scores]
+    most_common = invert_results[scores[0]]
     result_file.write("You had the most in-common with: " + most_common + "\n\n")
 
     result_file.write("Here's how it all stacked-up\n\n")
