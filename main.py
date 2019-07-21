@@ -50,7 +50,8 @@ def main():
     result_file.write("Here's how it all stacked-up\n\n")
     for score in scores:
         key = invert_results[score]
-        result_file.write("User: " + key + "\t\tAvg. difference: " + str(score) + "\n")
+        print_score = "{:.2f}".format(score)
+        result_file.write("User: " + key + "\t\tAvg. difference: " + print_score + "\n")
 
     result_file.close()
 
