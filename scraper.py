@@ -18,21 +18,29 @@ def scraper(username):
     following_url = "https://letterboxd.com/" + username + "/following/"
     browser.get(following_url)
 
-    # grab table
-    table = browser.find_element_by_xpath('//*[@id="content"]/div/div/section/table/tbody')
-    rows = table.find_elements_by_tag_name('tr')  # grab all rows
+    while True: # There may be more than one page of friends
+        # grab table
+        table = browser.find_element_by_xpath('//*[@id="content"]/div/div/section/table/tbody')
+        rows = table.find_elements_by_tag_name('tr')  # grab all rows
+        
+        for row in rows:
+            browser2 = webdriver.Chrome(options=browser_profile)  # launch new window for friend
+            new_friend = build_friend(row, browser2)
+            browser2.close()
 
-    for row in rows:
-        user_friend = row
-        browser2 = webdriver.Chrome(options=browser_profile)  # launch new window for friend
-        new_friend = build_friend(user_friend, browser2)
-        browser2.close()
-        # if no ratings are found in given friend, build_friend() returns None
-        # hence, we check if it is None before appending
-        if new_friend is not None:
-            friends.append(new_friend)
+            # if no ratings are found in given friend, build_friend() returns None
+            # hence, we check if it is None before appending
+            if new_friend is not None:
+                friends.append(new_friend)
 
-        sleep(1)
+            sleep(1)
+
+        # check if more pages of friends
+        if next_button(browser):
+            browser.find_element_by_xpath('//*[@id="content"]/div/div/section/div[2]/div[2]/a').click()
+            sleep(0.2)
+        else: # no more pages of friends .. break
+            break
 
     return friends
 
