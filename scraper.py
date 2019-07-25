@@ -22,7 +22,6 @@ def scraper(username):
         # grab table
         table = browser.find_element_by_xpath('//*[@id="content"]/div/div/section/table/tbody')
         rows = table.find_elements_by_tag_name('tr')  # grab all rows
-        
         for row in rows:
             browser2 = webdriver.Chrome(options=browser_profile)  # launch new window for friend
             new_friend = build_friend(row, browser2)
@@ -41,7 +40,8 @@ def scraper(username):
             sleep(0.2)
         else: # no more pages of friends .. break
             break
-
+            
+    browser.close()
     return friends
 
 
@@ -49,8 +49,17 @@ def build_friend(some_friend, browser):
     cols = some_friend.find_elements_by_tag_name('td')
     ratings_link = cols[1].find_element_by_tag_name('a').get_attribute('href')
     ratings_link_2 = ratings_link + "ratings/"
+    exceptions = 0
 
-    while True:  # sometimes an exception is thrown during this part. If this is the case, simply retry
+    # sometimes an exception is thrown during this part. If this is the case, simply retry
+    while True:
+
+        # if we continously get exceptions, letterboxd is likely having issues and 
+        # we should quit the program
+        if exceptions > 3:  
+            print("Scraping failed...terminating.")
+            exit(1)
+        
         try:
             # navigate to friend's ratings page
             browser.get(ratings_link_2)
@@ -91,4 +100,5 @@ def build_friend(some_friend, browser):
             new_friend = Friend(some_list[3], films_ratings)
             return new_friend
         except:
+            exceptions += 1
             continue

@@ -37,7 +37,7 @@ def main():
     # sort dictionary
     scores = list(results.values())
     scores.sort()
-    invert_results = {v: k for k, v in results.items()}
+    invert_results = {val: key for key, val in results.items()}
 
     print("Generating report...\n")
     # write report
@@ -47,11 +47,11 @@ def main():
     most_common = invert_results[scores[0]]
     result_file.write("You had the most in-common with: " + most_common + "\n\n")
 
-    result_file.write("Here's how it all stacked-up\n\n")
+    result_file.write("Here's how it all stacked-up:\n\n")
     for score in scores:
         key = invert_results[score]
-        print_score = "{:.2f}".format(score)
-        result_file.write("User: " + key + "\t\tAvg. difference: " + print_score + "\n")
+        print_line = "%s %s %s %.2f %s" % ("User:", key, "\t\tAvg. Difference:", score, "\n")
+        result_file.write(print_line)
 
     result_file.close()
 
