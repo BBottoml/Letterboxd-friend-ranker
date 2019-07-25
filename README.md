@@ -29,14 +29,14 @@ pip3 install selenium
 
 Step(iii)
 
-Lastly, you will need Chromedriver. This is a tool Google developed to automate/test web browsing. Please search and download the appropriate version. 
+Lastly, you will need Chromedriver. This is a tool Google developed to automate/test web browsing. Please search and download the appropriate version. <a href="http://chromedriver.chromium.org/">Here</a> is the link to Chromedriver. I have utilized this program on both an Ubuntu machine and a Windows machine. If I recall correctly, Selenium (the main dependency) recommends Chomredriver 14.xxx for Linux. I run the newest Chormedriver release on the Windows machine.  
 
 ## Running and utilizing 
 
 To run the program:
 
 ```
-python3 main.py
+python3 -u main.py
 ```
 
 ## License
@@ -47,4 +47,3 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 * Selenium
 * Chromedriver
-* etc
