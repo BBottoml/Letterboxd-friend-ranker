@@ -5,7 +5,7 @@ Letterboxd Friend Ranker takes a given user, scrapes all their corresponding fri
 <a href="url"><img src="https://raw.githubusercontent.com/BBottoml/Letterboxd-friend-ranker/master/Screenshot%20(71).png" align="center" height=35% width=35% ></a>
 
 ## Remarks:
-I intend to implement more functionality; such as: clean charts illustrating difference between friends, predictions, further statistics and more. Additionally, I will be working on releasing a PyPI library for scraping Letterboxd data and a Java library. Lastly, I plan to rewrite the scraping aspect of the project using BeautifulSoup as Selenium is rather slow for scraping so much data. 
+I intend to implement more functionality; such as: clean charts illustrating difference between friends, predictions, further statistics and more. Additionally, I will be working on releasing a PyPI library for scraping Letterboxd data and a Java package. Lastly, I plan to rewrite the scraping aspect of the project using BeautifulSoup as Selenium is rather slow for scraping so much data. 
 
 ## Getting Started
 
