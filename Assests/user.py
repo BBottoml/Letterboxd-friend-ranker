@@ -1,5 +1,6 @@
 from Assests.Extrafuncs import *
 from selenium import webdriver
+import chromedriver_binary
 
 '''''''''''''''''''''''''''''''''''''''''''''''''''''
 user class to store data pertaining to user
@@ -9,18 +10,23 @@ user class to store data pertaining to user
 class User:
 
     def __init__(self, file_name, username):
+        """
+        :param file_name: File name for data file (if applicable):
+        :param username: Main user's username
+        """
         self.username = username
         self.file_name = file_name
         self.films_ratings = dict()
-        try:
+        try:  # see if ratings file exists
             self.process_data()
-        except:
+        except FileNotFoundError:  # scrape data
             self.scrape_main_user()
 
     def process_data(self):
-        '''
+        """
         processes the data from provided input file
-        '''
+        :rtype: void
+        """
         user_data = open(self.file_name, "r")
 
         # iterate line by line and pre-process data
@@ -39,6 +45,15 @@ class User:
         print("\nProcessing data...\n")
 
     def scrape_main_user(self):
+        """
+        Scrapes the main user's data
+
+        Remark: Will soon deprecate since this function
+        already exists within scraper to an extent
+
+        :rtype: void
+
+        """
         print("\nScraping main user data...\n")
         browser_profile = webdriver.ChromeOptions()
         browser_profile.add_experimental_option('prefs', {'intl.accept_languages': 'en,en_US'})

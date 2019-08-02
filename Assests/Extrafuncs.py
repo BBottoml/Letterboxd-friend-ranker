@@ -5,10 +5,11 @@ program
 
 
 def clean_data(some_str):
-    '''
-    accepts a string a strips all bad characters
-    '''
-
+    """
+    given some string, returns a string stripped of bad values
+    :param some_str: string to be cleaned
+    :return: cleaned string
+    """
     # dictionary of bad values
     bad_vals = {
         'â€“': "-",
@@ -26,6 +27,11 @@ def clean_data(some_str):
 
 
 def transform_ratings(some_str):
+    """
+    transforms raw star rating into float value
+    :param: some_str: actual star rating
+    :rtype: returns the float representation of the given star(s)
+    """
     stars = {
         "★": 1,
         "★★": 2,
@@ -45,6 +51,11 @@ def transform_ratings(some_str):
 
 
 def next_button(browser):
+    """
+    given a selenium browser object, determines if there is a next button
+    :param browser:
+    :return: boolean
+    """
     try:
         browser.find_element_by_xpath('//*[@id="content"]/div/div/section/div[2]/div[2]/a')
         return True
@@ -53,6 +64,11 @@ def next_button(browser):
 
 
 def no_ratings(browser):
+    """
+    given a selenium browser object, determines if given page has no ratings
+    :param browser:
+    :return: boolean
+    """
     try:
         table = browser.find_element_by_xpath('//*[@id="content"]/div/div/section/section')
         header = table.find_element_by_tag_name('h2').text

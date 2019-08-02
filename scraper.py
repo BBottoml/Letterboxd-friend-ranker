@@ -2,13 +2,22 @@ from Assests.friend import *
 from Assests.Extrafuncs import *
 from selenium import webdriver
 from time import sleep
+import chromedriver_binary
 
 '''''''''''''''''''''''''''''''''''''''
 Scrape user's data
 '''''''''''''''''''''''''''''''''''''''
 
+# slow down program purposely to remain under the radar
+_sleep = 0.2
+
 
 def scraper(username):
+    """
+    Scrape's provided user's friend's data
+    :param username: the main user's username
+    :return: a list of dictionaries of the user's friends. Where each key entry is a film, and value is rating
+    """
     browser_profile = webdriver.ChromeOptions()
     browser_profile.add_experimental_option('prefs', {'intl.accept_languages': 'en,en_US'})
     browser = webdriver.Chrome(options=browser_profile)
@@ -18,7 +27,7 @@ def scraper(username):
     following_url = "https://letterboxd.com/" + username + "/following/"
     browser.get(following_url)
 
-    while True: # There may be more than one page of friends
+    while True:  # There may be more than one page of friends
         # grab table
         table = browser.find_element_by_xpath('//*[@id="content"]/div/div/section/table/tbody')
         rows = table.find_elements_by_tag_name('tr')  # grab all rows
@@ -32,15 +41,13 @@ def scraper(username):
             if new_friend is not None:
                 friends.append(new_friend)
 
-            sleep(1)
-
         # check if more pages of friends
         if next_button(browser):
             browser.find_element_by_xpath('//*[@id="content"]/div/div/section/div[2]/div[2]/a').click()
-            sleep(0.2)
-        else: # no more pages of friends .. break
+            sleep(_sleep)
+        else:  # no more pages of friends .. break
             break
-            
+
     browser.close()
     return friends
 
@@ -51,22 +58,23 @@ def build_friend(some_friend, browser):
     ratings_link_2 = ratings_link + "ratings/"
     exceptions = 0
 
-    # sometimes an exception is thrown during this part. If this is the case, simply retry
+    ''' We will sometimes encounter because of the Letterboxd website 
+    when scraping a lot of data. Hence, if we encounter an error, 
+    we will simply retry, up to three times, to scrape the desired friend's data'''
     while True:
 
-        # if we continously get exceptions, letterboxd is likely having issues and 
-        # we should quit the program
-        if exceptions > 3:  
+        # aforementioned check
+        if exceptions > 3:
             print("Scraping failed...terminating.")
             exit(1)
-        
+
         try:
             # navigate to friend's ratings page
             browser.get(ratings_link_2)
             films_ratings = dict()
 
             # ensure there are ratings present
-            # No ratings will only occur when user has seen 0 films
+            # no ratings will only occur when user has seen 0 films
             if no_ratings(browser):
                 return None
 
@@ -91,7 +99,7 @@ def build_friend(some_friend, browser):
                 # click next page if present
                 if next_button(browser):
                     browser.find_element_by_xpath('//*[@id="content"]/div/div/section/div[2]/div[2]/a').click()
-                    sleep(0.2)
+                    sleep(_sleep)
                 else:
                     break
 

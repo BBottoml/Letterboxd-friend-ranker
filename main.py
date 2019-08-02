@@ -1,6 +1,11 @@
 from Assests.user import User
 from Assests.commonality import *
+import generate_report as gr
 import scraper as sc
+
+'''
+Letterboxd friend ranker - main program
+'''
 
 
 def main():
@@ -39,9 +44,11 @@ def main():
     scores.sort()
     invert_results = {val: key for key, val in results.items()}
 
-    print("Generating report...\n")
     # write report
-    result_fn = "Commonality report for - " + current_user.username + ".txt"
+    print("Generating report...\n")
+    gr.generate_report(scores, invert_results, username)
+
+    '''result_fn = "Commonality report for - " + current_user.username + ".txt"
     result_file = open(result_fn, "w")
     result_file.write("Letterboxd Friend Ranker - Report for: " + current_user.username + "!\n\n")
     most_common = invert_results[scores[0]]
@@ -54,6 +61,7 @@ def main():
         result_file.write(print_line)
 
     result_file.close()
+    '''
 
     print("Done! View the report in the current directory!")
 
