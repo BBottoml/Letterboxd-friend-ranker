@@ -2,6 +2,7 @@ from Assests.friend import *
 from Assests.Extrafuncs import *
 from selenium import webdriver
 from time import sleep
+import chromedriver_binary
 
 '''''''''''''''''''''''''''''''''''''''
 Scrape user's data

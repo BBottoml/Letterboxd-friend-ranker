@@ -1,5 +1,6 @@
 from Assests.Extrafuncs import *
 from selenium import webdriver
+import chromedriver_binary
 
 '''''''''''''''''''''''''''''''''''''''''''''''''''''
 user class to store data pertaining to user
