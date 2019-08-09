@@ -8,3 +8,9 @@ __pycache__/scraper.cpython-37.pyc
 .idea/Letterboxd-friend-ranker.iml
 .idea/encodings.xml
 lbox/
+*.png
+*.pdf
+*.json
+*.xml
+*.xml
+.idea/inspectionProfiles/Project_Default.xml
