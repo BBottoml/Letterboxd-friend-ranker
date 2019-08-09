@@ -10,3 +10,7 @@ __pycache__/scraper.cpython-37.pyc
 lbox/
 *.png
 *.pdf
+*.json
+*.xml
+*.xml
+.idea/inspectionProfiles/Project_Default.xml
