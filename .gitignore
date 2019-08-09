@@ -14,3 +14,4 @@ lbox/
 *.xml
 *.xml
 .idea/inspectionProfiles/Project_Default.xml
+.vscode/
