@@ -28,7 +28,7 @@ def generate_report(results, main_user):
     # setup the title
     pdf.set_font('arial', 'B', 12)
     pdf.cell(60)
-    pdf.cell(75, 10, "Letterboxd Friend Ranker: Report for TEST"
+    pdf.cell(75, 10, "Letterboxd Friend Ranker: Report for " + main_user.username +
              " | Lower the avg. difference, the more in common", 0, 2,
              'C')
 
