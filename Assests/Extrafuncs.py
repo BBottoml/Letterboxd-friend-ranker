@@ -71,7 +71,7 @@ def scrape_ratings(ratings_link):
 
         # check to see page was downloaded correctly
         if ratings_page.status_code != 200:
-            encounter_error()
+            encounter_error("")
 
         soup = BeautifulSoup(ratings_page.content, 'html.parser')
         # browser.get(following_url)
@@ -102,7 +102,7 @@ def scrape_ratings(ratings_link):
 
 
 def encounter_error(custom_msg):
-    if custom_msg is None:
+    if custom_msg == "":
         print("\nAn Error has been encountered. Please try again.")
     else:
         print("\n", custom_msg)

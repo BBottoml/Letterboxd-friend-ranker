@@ -1,5 +1,6 @@
 from Assests.user import User
 from Assests.commonality import *
+import tkinter as tk 
 import generate_report as gr
 import scraper as sc
 
@@ -36,16 +37,19 @@ def main():
     # compute commonality for each friend
     results = commonality(current_user, friends)
 
+    '''
     # sort dictionary
     scores = list(results.values())
     scores.sort()
     invert_results = {val: key for key, val in results.items()}
 
+    '''
+
     # write report
     print("Generating report...\n")
-    # gr.generate_report(scores, invert_results, username)
+    gr.generate_report(results, current_user)
 
-    result_fn = "Commonality report for - " + current_user.username + ".txt"
+    '''result_fn = "Commonality report for - " + current_user.username + ".txt"
     result_file = open(result_fn, "w")
     result_file.write("Letterboxd Friend Ranker - Report for: " + current_user.username + "!\n\n")
     most_common = invert_results[scores[0]]
@@ -57,7 +61,7 @@ def main():
         result_file.write(print_line)
 
     result_file.close()
-
+'''
     print("Done! View the report in the current directory!")
 
 

@@ -17,12 +17,6 @@ def scraper(username):
     :param username: the main user's username
     :return: a list of dictionaries of the user's friends. Where each key entry is a film, and value is rating
     """
-    '''
-    browser_profile = webdriver.ChromeOptions()
-    browser_profile.add_experimental_option('prefs', {'intl.accept_languages': 'en,en_US'})
-    browser = webdriver.Chrome(options=browser_profile)
-    '''
-
     friends = []
 
     # navigate to user's following list
@@ -34,10 +28,9 @@ def scraper(username):
 
         # check to see page was downloaded correctly
         if following_page.status_code != 200:
-            encounter_error()
+            encounter_error("")
 
         soup = BeautifulSoup(following_page.content, 'html.parser')
-        # browser.get(following_url)
 
         # grab table and corresponding rows
         table = soup.find("tbody")
