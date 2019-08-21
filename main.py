@@ -36,32 +36,11 @@ def main():
     print("Computing scores...\n")
     # compute commonality for each friend
     results = commonality(current_user, friends)
-
-    '''
-    # sort dictionary
-    scores = list(results.values())
-    scores.sort()
-    invert_results = {val: key for key, val in results.items()}
-
-    '''
-
+    
     # write report
     print("Generating report...\n")
     gr.generate_report(results, current_user)
 
-    '''result_fn = "Commonality report for - " + current_user.username + ".txt"
-    result_file = open(result_fn, "w")
-    result_file.write("Letterboxd Friend Ranker - Report for: " + current_user.username + "!\n\n")
-    most_common = invert_results[scores[0]]
-    result_file.write("You had the most in-common with: " + most_common + "\n\n")
-    result_file.write("Here's how it all stacked-up:\n\n")
-    for score in scores:
-        key = invert_results[score]
-        print_line = "%s %s %s %.2f %s" % ("User:", key, "\t\tAvg. Difference:", score, "\n")
-        result_file.write(print_line)
-
-    result_file.close()
-'''
     print("Done! View the report in the current directory!")
 
 
